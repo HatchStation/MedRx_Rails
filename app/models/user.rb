@@ -3,4 +3,12 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
+
+  has_one :profile
+
+  after_create :build_user_profile
+
+  def build_user_profile
+    self.create_profile
+  end
 end
