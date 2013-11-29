@@ -8,6 +8,23 @@
  * You're free to add application-wide styles to this file and they'll appear at the top of the
  * compiled file, but it's generally better to create a new file per style scope.
  *
+ *= require jquery-ui
+ *= require bootstrap
+ *= require bootstrap-theme
  *= require_self
  *= require_tree .
  */
+
+html,
+body{
+  margin: 0;
+  font-size: 14px;
+  line-height: 20px;
+  color: #333333;
+  background: url("bg.png") repeat scroll 0 0 transparent;
+  background-attachment: scroll;
+}
+
+.header #header-navbar-collapse{
+  background-color: #D8D3DF;
+}
