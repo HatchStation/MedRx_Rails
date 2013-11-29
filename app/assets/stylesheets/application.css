@@ -21,8 +21,6 @@ body{
   font-size: 14px;
   line-height: 20px;
   color: #333333;
-  background: url("bg.png") repeat scroll 0 0 transparent;
-  background-attachment: scroll;
 }
 
 .header #header-navbar-collapse{

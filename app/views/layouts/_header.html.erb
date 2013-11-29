@@ -15,6 +15,11 @@
     <ul class="nav navbar-nav navbar-right">
       <% if current_user %>
         <li>
+          <%= link_to home_dashboard_path do%>
+            <i class="glyphicon glyphicon-home"></i> Dashboard
+          <% end %>
+        </li>
+        <li>
           <p class="navbar-text navbar-right">
             Signed in as <%= link_to current_user.username, profile_path(current_user.profile.id) %>
           </p>

@@ -4,7 +4,9 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  has_one :profile
+  has_one :profile, dependent: :destroy
+  has_one :doctor, dependent: :destroy
+  has_one :patient, dependent: :destroy
 
   after_create :build_user_profile
 

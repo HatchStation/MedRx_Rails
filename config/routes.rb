@@ -1,7 +1,19 @@
 Medrx::Application.routes.draw do
+
+  resources :doctors
+
+  resources :patients
+
+  resources :doctors do
+    collection do
+      get 'dashboard'
+    end
+  end
   resources :profiles
 
   devise_for :users
+
+  match '/home' => "home#dashboard", as: 'home_dashboard', via: :all
   root :to => "home#index"
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
