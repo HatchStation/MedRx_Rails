@@ -42,6 +42,7 @@ end
 group :development, :test do
   gem 'thin'
   gem 'quiet_assets'
+  gem 'capistrano', '~> 3.0.1'
 end
 
 # Use ActiveModel has_secure_password

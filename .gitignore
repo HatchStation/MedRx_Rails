@@ -21,4 +21,4 @@
 tmp/
 .sass-cache
 *.pid
-public/uploads
+public/uploadsconfig/deploy/staging.rb
