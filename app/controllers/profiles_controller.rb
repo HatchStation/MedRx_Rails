@@ -13,6 +13,7 @@ class ProfilesController < ApplicationController
   # PATCH/PUT /profiles/1
   # PATCH/PUT /profiles/1.json
   def update
+    current_user.create_doctor if current_user
     respond_to do |format|
       if @profile.update(profile_params)
         format.html { redirect_to @profile, notice: 'Profile was successfully updated.' }
@@ -32,6 +33,6 @@ class ProfilesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def profile_params
-      params[:profile].permit(:first_name, :last_name, :gender, :date_of_birth)
+      params[:profile].permit(:first_name, :last_name, :gender, :date_of_birth, :role)
     end
 end

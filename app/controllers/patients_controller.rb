@@ -4,7 +4,11 @@ class PatientsController < ApplicationController
   # GET /patients
   # GET /patients.json
   def index
-    @patients = current_user.doctor.patients if current_user and current_user.doctor
+    if current_user and current_user.doctor
+      @patients = current_user.doctor.patients
+    else
+      redirect_to doctors_path, notice: 'Update profile Role.'
+    end
   end
 
   # GET /patients/1
@@ -15,6 +19,7 @@ class PatientsController < ApplicationController
   # GET /patients/new
   def new
     @patient = Patient.new
+
   end
 
   # GET /patients/1/edit
@@ -24,7 +29,9 @@ class PatientsController < ApplicationController
   # POST /patients
   # POST /patients.json
   def create
-    @patient = Patient.new(patient_params)
+    #@patient = Patient.new(patient_params)
+    #raise patient_params.to_yaml
+    @patient = current_user.doctor.patients.new(patient_params)
 
     respond_to do |format|
       if @patient.save
@@ -69,6 +76,7 @@ class PatientsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def patient_params
-      params[:patient]
+      #params[:patient]
+      params.require(:patient).permit(:first_name, :last_name, :gender, :date_of_birth)
     end
 end
