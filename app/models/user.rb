@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
   has_one :doctor, dependent: :destroy
   has_one :patient, dependent: :destroy
 
+
   after_create :build_user_profile
 
   def build_user_profile

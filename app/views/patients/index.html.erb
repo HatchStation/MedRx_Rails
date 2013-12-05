@@ -3,6 +3,7 @@
 <table class="table">
   <thead>
     <tr>
+      <th>Device no</th>
       <th>First Name</th>
       <th>Last Name</th>
       <th>Date of Birth</th>
@@ -17,13 +18,13 @@
   <tbody>
     <% @patients.each do |patient| %>
       <tr>
-        <td><%= patient.first_name %></td>
-        <td><%= patient.last_name %></td>
-        <td><%= patient.date_of_birth %></td>
-        <td><%= patient.gender %></td>
+        <td><%= link_to patient.device_no, edit_patient_path(patient)  %></td>
+        <td><%#= patient.first_name %></td>
+        <td><%#= patient.last_name %></td>
+        <td><%#= patient.date_of_birth %></td>
+        <td><%#= patient.gender %></td>
         <td><%= patient.created_at %></td>
-        <td><%= link_to 'Show', patient %></td>
-        <td><%= link_to 'Edit', edit_patient_path(patient) %></td>
+        <td><%= link_to 'Medication', patient %></td>
         <td><%= link_to 'Destroy', patient, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>

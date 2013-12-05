@@ -7,7 +7,7 @@ class CreateProfiles < ActiveRecord::Migration
       t.string :gender
       t.string :image
       t.string :role
-      t.datetime :date_of_birth
+      t.date :date_of_birth
 
       t.timestamps
     end

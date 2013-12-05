@@ -19,7 +19,8 @@ class PatientsController < ApplicationController
   # GET /patients/new
   def new
     @patient = Patient.new
-
+    @patient.build_user
+    #@patient.build_user.build_profile
   end
 
   # GET /patients/1/edit
@@ -31,6 +32,7 @@ class PatientsController < ApplicationController
   def create
     #@patient = Patient.new(patient_params)
     #raise patient_params.to_yaml
+
     @patient = current_user.doctor.patients.new(patient_params)
 
     respond_to do |format|
@@ -76,7 +78,7 @@ class PatientsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def patient_params
-      #params[:patient]
-      params.require(:patient).permit(:first_name, :last_name, :gender, :date_of_birth)
+      #params[:patient].permit(:diagnosis, :device_no)
+      params[:patient].permit(patient: [ :device_no,:diagnosis, { user: [:email, :username] } ])
     end
 end

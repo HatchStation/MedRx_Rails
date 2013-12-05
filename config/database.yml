@@ -35,5 +35,5 @@ production:
   database: medrx_production
   pool: 5
   username: root
-  password:
+  password: gigumes@linode
   socket: /var/run/mysqld/mysqld.sock
