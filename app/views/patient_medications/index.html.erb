@@ -1,0 +1,73 @@
+<h1>Patient Medication</h1>
+<% patient = @patient %>
+
+<table class="table-bordered">
+  <thead>
+  <tr>
+    <th>Device no</th>
+    <th>First Name</th>
+    <th>Last Name</th>
+    <th>Date of Birth</th>
+    <th>Gender</th>
+    <th>Created At</th>
+    <th></th>
+  </tr>
+  </thead>
+
+  <tbody>
+      <tr>
+        <td><%= link_to patient.device_no, edit_patient_path(patient)  %></td>
+        <td><%= patient.profile.first_name %></td>
+        <td><%= patient.profile.last_name %></td>
+        <td><%= patient.profile.date_of_birth %></td>
+        <td><%= patient.profile.gender %></td>
+        <td><%= patient.created_at %></td>
+      </tr>
+  </tbody>
+</table>
+<hr>
+<table class="table">
+  <thead>
+  <tr>
+    <th>Capsule</th>
+    <th>Dosage</th>
+    <th></th>
+    <th></th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @patient_medications.each do |patient_medication| %>
+      <tr>
+        <td><%= patient_medication.medication.name %></td>
+        <td><%#= patient_medication.dosage %>Daily 2 times</td>
+        <td><%= link_to 'Edit', '#' %></td>
+        <td><%= link_to 'Destroy', patient_medication,method: :delete, data: {confirm: 'Are you sure?' } %></td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<br>
+<hr>
+<% new_patient_medication = PatientMedication.new %>
+
+<%= form_for new_patient_medication, url: new_medication_patient_medications_path , html: {class: 'form-inline'} do |f| %>
+
+    <%= hidden_field_tag(:patient_id, patient.id)%>
+    <div class="form-group">
+      <%= f.label 'capsule_name.', class: 'sr-only' %>
+      <% medications_array = Medication.all.map { |medication| [medication.name, medication.id] } %>
+      <%= f.select :medication_id, options_for_select(medications_array),{}, {class: 'form-control'} %>
+    </div>
+    <div class="form-group">
+      <label class="sr-only" for="exampleInputPassword2">Dosage</label>
+      <input type="password" class="form-control" id="exampleInputPassword2" placeholder="Dosage">
+    </div>
+
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+        <%= f.submit class: 'btn btn-success' %>
+      </div>
+    </div>
+<% end %>

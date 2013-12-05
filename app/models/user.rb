@@ -8,10 +8,15 @@ class User < ActiveRecord::Base
   has_one :doctor, dependent: :destroy
   has_one :patient, dependent: :destroy
 
+  accepts_nested_attributes_for :profile
+
 
   after_create :build_user_profile
 
   def build_user_profile
-    self.create_profile
+    self.create_profile if self.profile.blank?
   end
+
+
+
 end

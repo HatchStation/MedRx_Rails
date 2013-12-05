@@ -7,8 +7,13 @@ class Patient < ActiveRecord::Base
   has_one :profile, :through => :user
 
   #validates :first_name, presence: true
-  #validates :device_no, presence: true, uniqueness: true
+  validates :device_no, presence: true, uniqueness: true
 
   accepts_nested_attributes_for :user
+
+  #before_validation :password_generation
+  #def password_generation
+  #  password_confirmation = password = Devise.friendly_token.first(7) if password.nil? || password.blank?
+  #end
 
 end

@@ -1,5 +1,5 @@
 class PatientsController < ApplicationController
-  before_action :set_patient, only: [:show, :edit, :update, :destroy]
+  before_action :set_patient, only: [:show, :edit, :update, :destroy, :patient_medication]
 
   # GET /patients
   # GET /patients.json
@@ -20,12 +20,13 @@ class PatientsController < ApplicationController
   def new
     @patient = Patient.new
     @patient.build_user
-    #@patient.build_user.build_profile
+    @patient.build_user.build_profile
   end
 
   # GET /patients/1/edit
   def edit
   end
+
 
   # POST /patients
   # POST /patients.json
@@ -33,7 +34,9 @@ class PatientsController < ApplicationController
     #@patient = Patient.new(patient_params)
     #raise patient_params.to_yaml
 
-    @patient = current_user.doctor.patients.new(patient_params)
+    patient_parameters = patient_params
+    patient_parameters[:user_attributes][:password] = patient_parameters[:user_attributes][:password_confirmation] = Devise.friendly_token.first(7)
+    @patient = current_user.doctor.patients.new(patient_parameters)
 
     respond_to do |format|
       if @patient.save
@@ -79,6 +82,6 @@ class PatientsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def patient_params
       #params[:patient].permit(:diagnosis, :device_no)
-      params[:patient].permit(patient: [ :device_no,:diagnosis, { user: [:email, :username] } ])
+      params.require(:patient).permit(:device_no, user_attributes: [:id, :email, :username, :password, :password_confirmation, profile_attributes:[:first_name,:last_name,:date_of_birth, :gender]])
     end
 end

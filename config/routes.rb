@@ -9,6 +9,13 @@ Medrx::Application.routes.draw do
       get 'dashboard'
     end
   end
+
+  resources :patient_medications do
+    collection do
+      post "new_medication"
+    end
+  end
+
   resources :profiles
 
   devise_for :users
