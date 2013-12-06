@@ -16,4 +16,11 @@ class Patient < ActiveRecord::Base
   #  password_confirmation = password = Devise.friendly_token.first(7) if password.nil? || password.blank?
   #end
 
+  def age
+    return nil if self.profile and self.profile.date_of_birth.nil?
+    dob = self.profile.date_of_birth
+    now = Time.now.utc.to_date
+    now.year - dob.year - ((now.month > dob.month || (now.month == dob.month && now.day >= dob.day)) ? 0 : 1)
+  end
+
 end

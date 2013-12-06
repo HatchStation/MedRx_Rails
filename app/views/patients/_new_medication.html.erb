@@ -1,0 +1,19 @@
+<%= form_for new_patient_medication, url: new_medication_patient_path , html: {class: 'form-inline'} do |f| %>
+
+    <%= hidden_field_tag(:patient_id, patient.id)%>
+    <div class="form-group">
+      <%= f.label 'capsule_name.', class: 'sr-only' %>
+      <% medications_array = Medication.all.map { |medication| [medication.name, medication.id] } %>
+      <%= f.select :medication_id, options_for_select(medications_array),{}, {class: 'form-control'} %>
+    </div>
+    <div class="form-group">
+      <label class="sr-only" for="exampleInputPassword2">Dosage</label>
+      <input type="password" class="form-control" id="exampleInputPassword2" placeholder="Dosage">
+    </div>
+
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+        <%= f.submit class: 'btn btn-success' %>
+      </div>
+    </div>
+<% end %>

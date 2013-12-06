@@ -6,7 +6,7 @@
       <th>Device no</th>
       <th>First Name</th>
       <th>Last Name</th>
-      <th>Date of Birth</th>
+      <th>Age</th>
       <th>Gender</th>
       <th>Created At</th>
       <th></th>
@@ -21,11 +21,11 @@
         <td><%= link_to patient.device_no, edit_patient_path(patient)  %></td>
         <td><%= patient.profile.first_name %></td>
         <td><%= patient.profile.last_name %></td>
-        <td><%= patient.profile.date_of_birth %></td>
+        <td><%= patient.age %></td>
         <td><%= patient.profile.gender %></td>
-        <td><%= patient.created_at %></td>
-        <td><%= link_to 'Medication', patient_medications_path(:patient_id=>patient.id) %></td>
-        <td><%= link_to 'Destroy', patient, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= patient.created_at.localtime %></td>
+        <td><%= link_to 'Medication', medications_patient_path(patient) %></td>
+        <td><%#= link_to 'Destroy', delete_medication_patient(patient), data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>

@@ -1,5 +1,5 @@
 class PatientsController < ApplicationController
-  before_action :set_patient, only: [:show, :edit, :update, :destroy, :patient_medication]
+  before_action :set_patient, only: [:show, :edit, :update, :destroy, :medications, :new_medication, :delete_medication]
 
   # GET /patients
   # GET /patients.json
@@ -71,6 +71,21 @@ class PatientsController < ApplicationController
       format.html { redirect_to patients_url }
       format.json { head :no_content }
     end
+  end
+
+  def medications
+    @patient_medications = @patient.patient_medications
+  end
+
+  def new_medication
+    @patient.patient_medications.create(:medication_id => params[:patient_medication][:medication_id])
+    redirect_to medications_patient_path(@patient)
+  end
+
+  def delete_medication
+    patient_medication = @patient.patient_medications.find(params[:patient_medication_id])
+    patient_medication.destroy unless patient_medication.nil?
+    redirect_to medications_patient_path(@patient)
   end
 
   private

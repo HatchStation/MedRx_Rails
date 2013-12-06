@@ -2,7 +2,13 @@ Medrx::Application.routes.draw do
 
   resources :doctors
 
-  resources :patients
+  resources :patients do
+    member do
+      get "medications"
+      post "new_medication"
+      get "delete_medication"
+    end
+  end
 
   resources :doctors do
     collection do
@@ -10,11 +16,6 @@ Medrx::Application.routes.draw do
     end
   end
 
-  resources :patient_medications do
-    collection do
-      post "new_medication"
-    end
-  end
 
   resources :profiles
 

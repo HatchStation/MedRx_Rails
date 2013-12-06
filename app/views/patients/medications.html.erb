@@ -1,0 +1,60 @@
+
+<h1>Patient Medication</h1>
+<% patient = @patient %>
+
+ <div class="row">
+    <table class="table table-bordered">
+      <thead>
+      <tr>
+        <th>Device no</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Age</th>
+        <th>Gender</th>
+        <th>Created At</th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <tr>
+        <td><%= link_to patient.device_no, edit_patient_path(patient)  %></td>
+        <td><%= patient.profile.first_name %></td>
+        <td><%= patient.profile.last_name %></td>
+        <td><%= patient.age %></td>
+        <td><%= patient.profile.gender %></td>
+        <td><%= patient.created_at.localtime %></td>
+      </tr>
+      </tbody>
+    </table>
+ </div>
+<hr>
+
+ <div class="row">
+    <% new_patient_medication = PatientMedication.new %>
+    <%= render 'new_medication', :new_patient_medication => new_patient_medication, :patient => patient %>
+ </div>
+
+<hr>
+
+ <div class="row">
+    <table class="table">
+      <tr>
+        <th>Capsule</th>
+        <th>Dosage</th>
+        <th></th>
+        <th></th>
+      </tr>
+      <% @patient_medications.each do |patient_medication| %>
+          <tr>
+            <td><%= patient_medication.medication.name %></td>
+            <td><%#= patient_medication.dosage %>Daily 2 times</td>
+            <td><%= link_to 'Edit', '#' %></td>
+            <td><%= link_to 'Destroy', delete_medication_patient_path(:patient_medication_id => patient_medication.id), data: {confirm: 'Are you sure?' } %></td>
+          </tr>
+      <% end %>
+    </table>
+ </div>
+<br>
+<hr>
+
+
